@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Gestión de Áreas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://cdn.osmbuildings.org/classic/0.2.2b/OSMBuildings-Leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+</head>
+
+<body>
+  <div class="stars"></div>
+
+  <header>
+    <h1>Sistema de Gestión de Áreas</h1>
+    <p class="subtitle">Interfaz de código para Coordenadas</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Herramientas</h2>
+      <div class="tools">
+        <button id="btnTriangle">Dibujar Triángulo</button>
+        <button id="btnQuad">Dibujar Cuadrilátero</button>
+        <button id="btnRotate">Rotar</button>
+        <button id="btnTranslate">Trasladar</button>
+        <button id="btnScale">Escalar</button>
+        <button id="btnStreetView">Street View</button>
+        <button id="btnValidate">Validar Zona</button>
+        <button id="btnSave">Guardar Zona</button>
+        <button id="btnLoad">Cargar Zonas</button>
+        <button id="btnClear" class="danger">Limpiar</button>
+        <button id="btnDownload">Descargar PDF</button>
+      </div>
+    </section>
+
+    <section class="panel map-panel">
+      <h2>Mapa Interactivo</h2>
+      <div id="map"></div>
+      <p id="drawing-feedback"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Información</h2>
+      <div class="info">
+        <p><strong>Zona:</strong> <span id="infoZone">No seleccionada</span></p>
+        <p><strong>Coordenadas:</strong> <span id="infoCoords">--</span></p>
+        <p><strong>Área total:</strong> <span id="infoArea">--</span></p>
+        <p><strong>Medidas de lados:</strong> <span id="infoSides">--</span></p>
+        <p><strong>Determinante:</strong> <span id="infoDet">--</span></p>
+        <p><strong>Validación:</strong> <span id="infoValid">--</span></p>
+        <p><strong>País:</strong> <span id="infoCountry">--</span></p>
+        <p><strong>Estado:</strong> <span id="infoState">--</span></p>
+        <p><strong>Ciudad:</strong> <span id="infoCity">--</span></p>
+        <p><strong>Habitable:</strong> <span id="infoHabitable">--</span></p>
+        <p><strong>Cultivable:</strong> <span id="infoCultivable">--</span></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal para transformaciones -->
+  <div id="transformModal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Transformación</h3>
+      <div id="modalInputs"></div>
+      <div class="modal-buttons">
+        <button id="modalApply">Aplicar</button>
+        <button id="modalCancel" class="danger">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para nombrar el polígono -->
+  <div id="nameModal" class="modal">
+    <div class="modal-content">
+      <h3>Guardar Polígono</h3>
+      <p>Dale un nombre a la zona que quieres guardar.</p>
+      <input type="text" id="polygonName" placeholder="Ej: Casa, Terreno principal...">
+      <div class="modal-buttons">
+        <button id="modalSaveName">Guardar</button>
+        <button id="modalCancelName" class="danger">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para cargar polígonos -->
+  <div id="loadModal" class="modal">
+    <div class="modal-content">
+      <h3>Cargar Zona Guardada</h3>
+      <div id="savedPolygonsList">
+        <!-- La lista de polígonos se insertará aquí -->
+      </div>
+      <div class="modal-buttons">
+        <button id="modalCancelLoad" class="danger">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="fade-in">
+    <p>Fundamentos matematicos  — <span>Profe David</span></p>
+    <!--
+     * Copyright (c) 2025 William y Angel.
+     * All rights reserved.
+    -->
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+</body>
+</html>
